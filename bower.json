@@ -1,8 +1,9 @@
 {
-  "name": "MindMeteo Mobile",
+  "name": "MindMeteo",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.0.1"
+    "ionic": "driftyco/ionic-bower#1.0.1",
+    "ionic-service-core": "~0.1.7"
   },
   "dependencies": {
     "angular-local-storage": "~0.2.2"
