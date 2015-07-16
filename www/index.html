@@ -6,11 +6,8 @@
     <meta http-equiv="Content-Security-Policy" content="default-src &apos;self&apos; localhost:* mindmeteo.net; style-src &apos;self&apos; &apos;unsafe-inline&apos;; script-src &apos;self&apos; &apos;unsafe-inline&apos; &apos;unsafe-eval&apos;">
     <title></title>
 
-    <link href="lib/ionic/css/ionic.css?ionicCachebuster=35531" rel="stylesheet">
-
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    -->
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js?ionicCachebuster=35531"></script>
@@ -20,14 +17,20 @@
 
     <script src="lib/ionic-service-core/ionic-core.js?ionicCachebuster=35531"></script>
     <script src="lib/angular-local-storage/dist/angular-local-storage.min.js?ionicCachebuster=35531"></script>
+    <script src="lib/angular-resource/angular-resource.min.js"></script>
+    <script src="lib/angular-moment/angular-moment.min.js"></script>
+    <script src="lib/angular-bootstrap/ui-bootstrap.min.js"></script>
 
     <script src="js/app.js?ionicCachebuster=35531"></script>
     <script src="js/dashboard.js?ionicCachebuster=35531"></script>
+    <script src="js/guest.js?ionicCachebuster=35531"></script>
+    <script src="js/flashMsg.js?ionicCachebuster=35531"></script>
+    <script src="js/mind.js?ionicCachebuster=35531"></script>
+    <script src="js/session.js?ionicCachebuster=35531"></script>
+    <script src="js/i18n.js?ionicCachebuster=35531"></script>
+    <script src="js/timezone.js?ionicCachebuster=35531"></script>
   </head>
   <body ng-app="mindmeteo">
-    <ion-nav-bar class="bar-stable">
-      <ion-nav-back-button></ion-nav-back-button>
-    </ion-nav-bar>
     <ion-nav-view></ion-nav-view>
   </body>
 </html>

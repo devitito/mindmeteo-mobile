@@ -1,5 +1,5 @@
 
-angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule', 'dashboard'])
+angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule', 'dashboard', 'guest'])
 
 .config(['$stateProvider',
          'localStorageServiceProvider',
@@ -15,13 +15,32 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
     });
 
     $stateProvider
-    .state('dashboard', {
-        url: '/dashboard',
+
+    .state('guest', {
+        url: '/',
+        templateUrl: 'templates/guest.html',
+        controller: 'mguestCtrl'
+    })
+
+    .state('signup', {
+        url: '/signup',
+        templateUrl: 'templates/signup.html',
+        controller: 'mnewSessionCtrl'
+    })
+
+    /*.state('guest.register', {
+      url: '/register',
+      templateUrl: 'templates/register.html',
+      controller: 'mguestRegCtrl'
+    })*/
+
+    .state('mind', {
+        url: '/mind',
         abstract: true,
         templateUrl: 'templates/dashboard.html'
     })
 
-    .state('dashboard.climate', {
+    .state('mind.climate', {
         url: '/climate',
         views: {
           'dash-climate': {
@@ -31,7 +50,7 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
         }
     })
 
-    .state('dashboard.reports', {
+    .state('mind.reports', {
         url: '/reports',
         views: {
           'dash-reports': {
@@ -41,17 +60,7 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
         }
     })
 
-    /*.state('dashboard.profile', {
-        url: '/profile',
-        views: {
-          'dash-profile': {
-            templateUrl: 'templates/dash-profile.html',
-            controller: 'dashProfileCtrl'
-          }
-        }
-    });*/
-
-    $urlRouterProvider.otherwise('/dashboard/climate');
+    $urlRouterProvider.otherwise('/');
 
     localStorageServiceProvider
         .setStorageType('sessionStorage')

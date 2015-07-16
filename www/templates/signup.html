@@ -1,0 +1,23 @@
+<ion-view view-title="Who are you?">
+    <ion-nav-bar class="bar-calm">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+  <ion-content class="padding aligner-column" scroll="false">
+
+    <div ng-show="error" role="alert">
+        <h4 class="assertive">{{error}}</h4>
+	</div>
+
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" placeholder="Mind name or email" ng-model="guest.nameoremail">
+      </label>
+      <label class="item item-input">
+        <input type="password" placeholder="Password" ng-model="guest.password">
+      </label>
+    </div>
+    <button class="button button-block button-calm" ng-click="new();">
+      Sign up
+    </button>
+  </ion-content>
+</ion-view>
