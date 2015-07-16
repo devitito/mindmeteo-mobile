@@ -67,7 +67,7 @@ angular.module('guest', ['session', 'flashMsg', 'mind'])
 				//if (success.role == 'admin')
                   //$window.location.href = '/administrator/';
 				//else
-                  $state.go('dashboard.climate');
+                  $state.go('mind.climate');
 			})
 			.catch(function(error) {
 				$scope.error = error.data;
