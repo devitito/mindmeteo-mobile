@@ -1,5 +1,5 @@
 
-angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule', 'dashboard', 'guest'])
+angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule', 'dashboard', 'guest', 'session'])
 
 .config(['$stateProvider',
          'localStorageServiceProvider',
@@ -69,9 +69,9 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
 
 }])
 
-.run(['$ionicPlatform', '$http', function($ionicPlatform, $http) {
+.run(['$ionicPlatform', '$http', 'backendUrl', function($ionicPlatform, $http, backendUrl) {
     $ionicPlatform.ready(function() {
-        $http.get('/csrfToken').success(function(data){
+        $http.get(backendUrl+'/csrfToken').success(function(data){
             $http.defaults.headers.common['x-csrf-token'] = data._csrf;
         });
     });

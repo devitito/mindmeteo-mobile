@@ -1,5 +1,5 @@
 
-angular.module('session', ['ngResource', 'angularMoment', 'LocalStorageModule'])
+angular.module('session', ['ngResource', 'angularMoment', 'LocalStorageModule', 'ionic'])
   .factory('identityService', ['$resource', '$rootScope', '$q', 'moment', 'localStorageService',
   function($resource, $rootScope, $q, moment, localStorageService){
 	var factory = {};
@@ -50,13 +50,13 @@ angular.module('session', ['ngResource', 'angularMoment', 'LocalStorageModule'])
 
 	return factory;
 }])
-  .factory('sessionFactory', ['$resource', '$q', '$http', 'identityService', function($resource, $q, $http, identityService){
+  .factory('sessionFactory', ['$resource', '$q', '$http', 'identityService', 'backendUrl', function($resource, $q, $http, identityService, backendUrl){
 	var factory = {};
 
 	var resource = $resource('/session', {}, {
-		create: {method:'POST', url:'/session/create'},
-		destroy: {method: 'GET', url:'/session/destroy'},
-        fetch: {method: 'GET', url:'/session/fetch'}
+		create: {method:'POST', url: backendUrl+'/session/create'},
+		destroy: {method: 'GET', url: backendUrl+'/session/destroy'},
+        fetch: {method: 'GET', url: backendUrl+'/session/fetch'}
 	});
 
 	factory.create = function (credentials) {
@@ -95,4 +95,11 @@ angular.module('session', ['ngResource', 'angularMoment', 'LocalStorageModule'])
 	};
 
 	return factory;
+}])
+.factory('backendUrl', [function() {
+    if(ionic.Platform.isWebView())
+        return 'http://mindmeteo.net';
+    else
+        return '';
+
 }]);
