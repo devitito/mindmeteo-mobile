@@ -1,4 +1,22 @@
 {
   "name": "mindmeteo",
-  "app_id": "1167016d"
+  "app_id": "1167016d",
+  "proxies": [
+    {
+      "path": "/csrfToken",
+      "proxyUrl": "http://localhost:1337/csrfToken"
+    },
+    {
+      "path": "/session",
+      "proxyUrl": "http://localhost:1337/session"
+    }
+  ],
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }
