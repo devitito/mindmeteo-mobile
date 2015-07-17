@@ -9,6 +9,10 @@
     {
       "path": "/session",
       "proxyUrl": "http://localhost:1337/session"
+    },
+    {
+      "path": "/statement",
+      "proxyUrl": "http://localhost:1337/statement"
     }
   ],
   "gulpStartupTasks": [

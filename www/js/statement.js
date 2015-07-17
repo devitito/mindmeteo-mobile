@@ -1,0 +1,129 @@
+/**
+ * @project Mind meteo
+ * @author devitito
+ * @date
+ *
+ */
+
+
+angular.module('statement', ['ngResource', 'session', 'stats', 'report', 'emocicones'])
+.controller('mindNewStatementCtrl', [
+	'$scope',
+	'$location',
+	'$timeout',
+	'$sce',
+	'identity',
+	'sessionFactory',
+	'statsFactory',
+	'reportCategories',
+	'emociconeService',
+	'reportRanges',
+	'statementsFactory',
+  function ($scope, $location, $timeout, $sce, identity, sessionFactory, statsFactory, reportCategories, emociconeService, reportRanges, statementsFactory) {
+		$scope.processing = false;
+		$scope.redirect = false;
+
+		$scope.go = function (url) {
+			$location.path(url);
+		};
+
+		$scope.identity = identity;
+
+		$scope.logout = function () {
+			sessionFactory.destroy()
+			.then(function(success) {
+				$location.path('/');
+			})
+			.catch(function(error) {
+				//todo display error
+			});
+		};
+
+		$scope.showError = function (error) {
+			$scope.processing = false;
+			try {
+				$scope.error = $sce.trustAsHtml(error.message);
+				if (error.name == 'NoRecentRecords')
+					$scope.redirect = true;
+			} catch (e) {
+				$scope.showError("Our meteologist are too busy currently. There is an hurrican somewhere.<br>You are not the center of the world.<br>Try again later.");
+			}
+			//$scope.error = $sce.trustAsHtml(error);
+			$timeout(function() {
+				$scope.error = undefined;
+				if ($scope.redirect)
+					$location.path('/dashboard/'+$scope.identity.name);
+			}, 5000);
+		};
+
+		$scope.categories = reportCategories.categories;
+
+		$scope.getCategoryLabel = function(category) {
+			var label = reportCategories.label(category);
+			console.log(label);
+			return label;
+		};
+
+		$scope.ViewStatement = function(statement) {
+			$scope.editedStatement = statement;
+		};
+
+		$scope.getRangeLabel = function(range) {
+			return reportRanges.label(range);
+		}
+
+		$scope.getEmocicone = function (range) {
+			return emociconeService.range2img(range);
+		};
+
+		$scope.getCategoryLabel = function(category) {
+			return reportCategories.label(category);
+		};
+
+		$scope.options = {};
+		$scope.generate = function() {
+			$scope.processing = true;
+			var statement = new statementsFactory();
+			statement.recipient = $scope.options.recipient;
+			statement.category = $scope.options.category;
+			statement.$generate({id: $scope.identity.id})
+			.then(function (statement) {
+				$scope.processing = false;
+				$scope.ViewStatement(statement);
+			})
+			.catch(function (error) {
+				try {
+					$scope.showError(error.data.error);
+				} catch (e) {
+					$scope.showError("Our meteologist are too busy currently. There is an hurrican somewhere.<br>You are not the center of the world.<br>Try again later.");
+				}
+			});
+		};
+}])
+.controller('mindViewStatementCtrl', [
+	'$scope',
+	'$location',
+	'identity',
+	'statement',
+	'reportCategories',
+	'emociconeService',
+	'reportRanges',
+  function ($scope, $location, identity, statement, reportCategories, emociconeService, reportRanges) {
+    $scope.go = function (url) {
+      $location.path(url);
+    };
+
+    $scope.close = function () {
+      $location.path('/dashboard/'+identity.name);
+    };
+
+    $scope.statement = statement;
+}])
+.factory('statementsFactory', ['$resource', '$q', 'backendUrl', function($resource, $q, backendUrl){
+  var factory = $resource(backendUrl+'/statement/:id', {id:'@id'}, {
+    bymind: {method: 'GET', url: backendUrl+'/statement/bymind'},
+    generate: {method: 'POST', url: backendUrl+'/statement/generate'}
+  });
+
+  return factory;
+}]);
