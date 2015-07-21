@@ -98,7 +98,7 @@ angular.module('session', ['ngResource', 'angularMoment', 'LocalStorageModule', 
 }])
 .factory('backendUrl', [function() {
     if(ionic.Platform.isWebView())
-        return 'http://mindmeteo.net';
+        return 'https://mindmeteo.net';
     else
         return '';
 
