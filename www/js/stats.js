@@ -1,6 +1,6 @@
 
 
-angular.module('stats', ['ngResource', 'googlechart'])
+angular.module('stats', ['ngResource', 'googlechart', 'session'])
 .controller('statsCtrl', ['$scope', 'data', 'statsFactory',
     function ($scope, data, statsFactory) {
 		try {
@@ -15,11 +15,11 @@ angular.module('stats', ['ngResource', 'googlechart'])
 			$scope.errors = 'error';
 		};
 }])
-.factory('statsFactory', ['$resource', '$q', function($resource, $q){
+.factory('statsFactory', ['$resource', '$q', 'backendUrl', function($resource, $q, backendUrl){
 	var factory = {};
 
 	factory.query = function (deferred) {
-		$resource('/admin/stats/:graph', {}, {
+		$resource(backendUrl+'/admin/stats/:graph', {}, {
 			query: {method:'GET', isArray:false}
 		}).query(
 			function(data){
@@ -32,7 +32,7 @@ angular.module('stats', ['ngResource', 'googlechart'])
 
 	factory.climate = function (id) {
 		var deferred = $q.defer();
-		$resource('/mind/climate/:id', {}, {
+		$resource(backendUrl+'/mind/climate/:id', {}, {
 			climate: {method:'GET', params:{id:id}, isArray:false}
 		}).climate().$promise
 		.then(function(data) {
