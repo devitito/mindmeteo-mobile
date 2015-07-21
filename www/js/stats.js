@@ -36,7 +36,6 @@ angular.module('stats', ['ngResource', 'googlechart'])
 			climate: {method:'GET', params:{id:id}, isArray:false}
 		}).climate().$promise
 		.then(function(data) {
-			console.log(data);
 			deferred.resolve(data);
 		})
 		.catch(function (data) {

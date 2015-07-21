@@ -3,6 +3,9 @@
         <ion-nav-back-button></ion-nav-back-button>
     </ion-nav-bar>
     <ion-content>
-        Climate
+      <div ng-hide="message">
+        <div google-chart chart="climate" class="mood-chart"></div>
+      </div>
+      <div ng-show="message" class="text-center" ><h4>{{message}}</h4></div>
     </ion-content>
 </ion-view>

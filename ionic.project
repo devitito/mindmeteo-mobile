@@ -13,6 +13,10 @@
     {
       "path": "/statement",
       "proxyUrl": "http://localhost:1337/statement"
+    },
+    {
+      "path": "/mind/climate",
+      "proxyUrl": "http://localhost:1337/mind/climate"
     }
   ],
   "gulpStartupTasks": [

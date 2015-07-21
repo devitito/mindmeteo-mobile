@@ -45,7 +45,12 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
         views: {
           'dash-climate': {
             templateUrl: 'templates/dash-climate.html',
-            controller: 'dashClimateCtrl'
+            controller: 'dashClimateCtrl',
+            resolve: {
+              identity: ['identityService', function(identityService) {
+                return identityService.get();
+              }]
+            }
           }
         }
     })
