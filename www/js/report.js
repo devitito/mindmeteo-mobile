@@ -66,10 +66,10 @@ angular.module('report', ['session', 'i18n', 'ngResource', 'flashMsg', 'sensor']
 	};
 
 	factory.categories = [
-		{code:'pro', name:'Professional', img:'../images/pro.png'},
-		{code:'friends', name:'Friends', img:'../images/friends.png'},
-		{code:'family', name:'Family', img:'../images/family.png'},
-		{code:'lover', name:'Lover', img:'../images/lover.png'}
+		{code:'pro', name:'Professional', img:'../img/pro.png'},
+		{code:'friends', name:'Friends', img:'../img/friends.png'},
+		{code:'family', name:'Family', img:'../img/family.png'},
+		{code:'lover', name:'Lover', img:'../img/lover.png'}
 	];
 
 	return factory;
@@ -94,4 +94,9 @@ angular.module('report', ['session', 'i18n', 'ngResource', 'flashMsg', 'sensor']
 	};
 
 	return factory;
-}]);
+}])
+.filter('summerize', function() {
+  return function(input) {
+    return input.length > 150 ? input.substring(0, 150) + "..." : input;
+  };
+});

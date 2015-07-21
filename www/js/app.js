@@ -1,5 +1,5 @@
 
-angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule', 'dashboard', 'guest', 'session'])
+angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule', 'dashboard', 'guest', 'session', 'statement'])
 
 .config(['$stateProvider',
          'localStorageServiceProvider',
@@ -55,7 +55,14 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
         views: {
           'dash-reports': {
             templateUrl: 'templates/dash-reports.html',
-            controller: 'dashReportsCtrl'
+            controller: 'dashReportsCtrl',
+            resolve: {
+              statements: ['identityService', 'statementsFactory', function(identityService, statementsFactory) {
+                return identityService.get().then(function(mind) {
+                  return statementsFactory.bymind({id: mind.id, page: 1, count: 3}).$promise;
+                });
+              }]
+            }
           }
         }
     })

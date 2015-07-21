@@ -3,57 +3,21 @@
         <ion-nav-back-button></ion-nav-back-button>
     </ion-nav-bar>
     <ion-content>
-        <div class="list card">
+        <div ng-repeat="statement in statements" class="list card">
             <div class="item item-avatar">
-                <img src="avatar.jpg">
-                <h2>Title</h2>
-                <h2>Mood</h2>
-                <p>Date</p>
-                <p>Meteologist</p>
+                <img ng-src='{{getImgByCategory(statement.report.category)}}'>
+                <h2>{{statement.report.title}}</h2>
+                <span class="span2 emocicones">{{getEmocicone(statement.report.range)}}&nbsp;</span>
+                <p>{{statement.report.meteologist.name}}</p>
+                <p>{{statement.createdAt | amDateFormat:'LL'}}</p>
             </div>
 
             <div class="item item-body">
-                <p>
-                  Weather report short description fzef,lknelrgn lenglkenglng r
-                </p>
+                <p>{{statement.body | summerize}}</p>
                <!-- <p>
                   <a href="#" class="subdued">1 Like</a>
                   <a href="#" class="subdued">5 Comments</a>
                 </p>-->
-              </div>
-
-        </div>
-
-        <div class="list card">
-            <div class="item item-avatar">
-                <img src="avatar.jpg">
-                <h2>Title</h2>
-                <h2>Mood</h2>
-                <p>Date</p>
-                <p>Meteologist</p>
-            </div>
-
-            <div class="item item-body">
-                <p>
-                  Weather report short description fzef,lknelrgn lenglkenglng r
-                </p>
-              </div>
-
-        </div>
-
-        <div class="list card">
-            <div class="item item-avatar">
-                <img src="avatar.jpg">
-                <h2>Title</h2>
-                <h2>Mood</h2>
-                <p>Date</p>
-                <p>Meteologist</p>
-            </div>
-
-            <div class="item item-body">
-                <p>
-                  Weather report short description fzef,lknelrgn lenglkenglng r
-                </p>
               </div>
 
         </div>
