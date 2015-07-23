@@ -2,7 +2,7 @@
   <!--Remove nav bar from here to avoid flicker when switching tabs -->
     <ion-content>
         <div ng-repeat="statement in statements" class="list card">
-            <div class="item item-avatar">
+            <div class="item item-thumbnail-left">
                 <img ng-src='{{getImgByCategory(statement.report.category)}}'>
                 <h2>{{statement.report.title}}</h2>
                 <span class="span2 emocicones">{{getEmocicone(statement.report.range)}}&nbsp;</span>

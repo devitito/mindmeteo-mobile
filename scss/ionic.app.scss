@@ -52,5 +52,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .mood-chart {
-    flex: 1;
+  flex: 1;
+  -webkit-flex: 1;
 }
