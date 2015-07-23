@@ -4,8 +4,8 @@
         <ion-nav-back-button></ion-nav-back-button>
     </ion-nav-bar>-->
     <ion-content class="aligner-column-bottom padding" scroll="false">
-        <div ng-hide="message" google-chart chart="climate" class="mood-chart card aligner-column-item-center"></div>
-        <button ng-hide="message" class="button button-block button-calm aligner-column-item-bottom icon ion-android-add no-margin-bottom">
+        <div ng-hide="message" google-chart chart="climate" class="card"></div>
+        <button ng-hide="message" class="button button-block button-calm icon ion-android-add no-margin-bottom">
           New measurements
         </button>
       <div ng-show="message" class="text-center" ><h4>{{message}}</h4></div>

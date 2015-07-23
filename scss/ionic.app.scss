@@ -51,7 +51,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   margin-bottom: 0px !important;
 }
 
-.mood-chart {
+div[google-chart] {
+  margin: auto;
   flex: 1;
   -webkit-flex: 1;
 }
