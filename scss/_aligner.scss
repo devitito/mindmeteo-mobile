@@ -1,0 +1,84 @@
+
+/**
+* Row alignment
+*
+*/
+
+.aligner {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+}
+
+.aligner-item-top {
+    align-self: flex-start;
+    -webkit-align-self: flex-start;
+}
+
+.aligner-item-bottom {
+    align-self: flex-end;
+    -webkit-align-self: flex-end;
+}
+
+/**
+* Column alignment
+*
+*/
+
+// Wrappers
+//
+.aligner-column {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    justify-content: center;
+    -webkit-justify-content: center;
+}
+
+.aligner-column-top {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    justify-content: flex-start;
+    -webkit-justify-content: flex-start;
+}
+
+.aligner-column-bottom {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    justify-content: flex-end;
+    -webkit-justify-content: flex-end;
+}
+
+//Items
+.aligner-column-item-top {
+    margin-bottom: auto;
+}
+
+// Centered both horizontaly  nd vertically
+.aligner-column-item-center {
+    margin: auto;
+}
+
+// Centered verticaly only
+.aligner-column-item-center-vertical {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+// Centered horizontaly only
+.aligner-column-item-center-horizontal {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.aligner-column-item-bottom {
+    margin-top: auto;
+}

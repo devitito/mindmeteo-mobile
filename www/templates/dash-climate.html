@@ -3,9 +3,9 @@
    <!-- <ion-nav-bar class="bar-calm">
         <ion-nav-back-button></ion-nav-back-button>
     </ion-nav-bar>-->
-    <ion-content>
+    <ion-content class="aligner-column">
       <div ng-hide="message">
-        <div google-chart chart="climate" class="mood-chart"></div>
+        <div google-chart chart="climate" class="mood-chart card aligner-column-item-center-vertical"></div>
       </div>
       <div ng-show="message" class="text-center" ><h4>{{message}}</h4></div>
     </ion-content>
