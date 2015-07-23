@@ -22,14 +22,35 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "www/lib/ionic/scss/ionic";
 @import "aligner";
 
-@media all and (orientation:portrait) {
-  .mood-chart {
-    height:80vh;
-  }
+@mixin fullWidthAndHeightMinusMargin($margin) {
+    $minusValue: $margin*2;
+    margin: $margin;
+    width: calc(100% - #{$minusValue});
+    width: -webkit-calc(100% - #{$minusValue});
+    height: calc(100% - #{$minusValue});
+    height: -webkit-calc(100% - #{$minusValue});
 }
 
-@media all and (orientation:landscape) {
-  .mood-chart {
-    height:68vh;
-  }
+@mixin fullWidthMinusMargin($margin) {
+    $minusValue: $margin*2;
+    margin-left: $margin;
+    margin-right: $margin;
+    width: calc(100% - #{$minusValue});
+    width: -webkit-calc(100% - #{$minusValue});
+}
+
+@mixin fullHeightMinusMarginAndExtra($margin) {
+    $minusValue: $margin*2;
+    margin-top: $margin;
+    margin-bottom: $margin;
+    height: calc(100% - #{$minusValue});
+    height: -webkit-calc(100% - #{$minusValue});
+}
+
+.no-margin-bottom {
+  margin-bottom: 0px !important;
+}
+
+.mood-chart {
+    flex: 1;
 }
