@@ -1,7 +1,8 @@
 <ion-view view-title="Your climate">
-    <ion-nav-bar class="bar-calm">
+  <!--Remove nav bar from here to avoid flicker when switching tabs-->
+   <!-- <ion-nav-bar class="bar-calm">
         <ion-nav-back-button></ion-nav-back-button>
-    </ion-nav-bar>
+    </ion-nav-bar>-->
     <ion-content>
       <div ng-hide="message">
         <div google-chart chart="climate" class="mood-chart"></div>
