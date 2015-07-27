@@ -21,6 +21,10 @@
     {
       "path": "/sensor",
       "proxyUrl": "http://localhost:1337/sensor"
+    },
+    {
+      "path": "/record",
+      "proxyUrl": "http://localhost:1337/record"
     }
   ],
   "gulpStartupTasks": [

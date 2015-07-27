@@ -1,7 +1,7 @@
 
 
 angular.module('climate', ['emocicones', 'session', 'record'])
-.controller('mindClimateRecordCtrl', [
+.controller('mmindClimateRecordCtrl', [
   '$scope',
   '$location',
   '$timeout',
@@ -22,10 +22,6 @@ angular.module('climate', ['emocicones', 'session', 'record'])
           viewData.enableBack = true;
         });
 
-        $scope.myGoBack = function() {
-          $state.go('mind.climate');
-        }
-
 		$scope.identity = identity;
 
 		$scope.showError = function (error) {
@@ -38,19 +34,17 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 		};
 
 		$scope.close = function () {
-			if ($scope.records.length) {
-				$scope.processing = true;
+          if ($scope.records.length) {
+            recordsFactory.save({id:$scope.identity.id}, $scope.records).then(function (success) {
+              $state.go('mind.climate');
+            }).catch(function (err) {
+              $scope.showError(err.data);
+            });
 
-				recordsFactory.save({id:$scope.identity.id}, $scope.records)
-				.then(function (success) {
-					$location.path('dashboard/'+$scope.identity.name);
-				})
-				.catch(function (err) {
-					$scope.showError(err.data);
-				});
-			}
-			else
-				$location.path('dashboard/'+$scope.identity.name);
+            $state.go('record.saving');
+          }
+          else
+            $state.go('mind.climate');
   	};
 
 		/**
@@ -76,7 +70,7 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 			sensorIndex = getNextRandomSensorIndex();
 			console.log(sensorIndex);
 			if (sensorIndex == -1)
-				$scope.end = true;
+				$state.go('record.end');
 			else
 				$scope.sensor = sensorList[sensorIndex]._source;
 		};

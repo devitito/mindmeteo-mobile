@@ -74,8 +74,17 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
 
     .state('record', {
       url: '/record',
-          templateUrl: 'templates/record.html',
-          controller: 'mindClimateRecordCtrl',
+      abstract: true,
+      templateUrl: 'templates/record.html',
+      cache: false
+    })
+
+    .state('record.measure', {
+      url: '/measure',
+      views: {
+        'rec-measure': {
+          templateUrl: 'templates/measure.html',
+          controller: 'mmindClimateRecordCtrl',
           resolve: {
             identity: ['identityService', function(identityService) {
               return identityService.get();
@@ -84,7 +93,23 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
               return sensorsFactory.listBy({field: "status", value: "approved"});
             }]
           }
+        }
+      }
     })
+
+    .state('record.saving', {
+      url: '/saving',
+      views: {
+        'rec-saving': {
+          templateUrl: 'templates/saving.html',
+        }
+      }
+    })
+
+   /* .state('record.end', {
+      url: '/end',
+      templateUrl: 'templates/end.html',
+    })*/
 
     $urlRouterProvider.otherwise('/');
 

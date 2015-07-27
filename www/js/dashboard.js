@@ -9,10 +9,12 @@ angular.module('dashboard', ['report', 'emocicones', 'stats', 'climate', 'google
   '$timeout',
   '$state',
   function($scope, statsFactory, climateChartHelper, identity, $timeout, $state) {
-    statsFactory.climate(identity.name).then(function (climate) {
-      climateChartHelper.load($scope, climate);
-    }).catch(function (error) {
-      $scope.showError(error);
+    $scope.$on('$ionicView.beforeEnter', function () {
+      statsFactory.climate(identity.name).then(function (climate) {
+        climateChartHelper.load($scope, climate);
+      }).catch(function (error) {
+        $scope.showError(error);
+      });
     });
 
     $scope.showError = function (error) {
@@ -23,7 +25,7 @@ angular.module('dashboard', ['report', 'emocicones', 'stats', 'climate', 'google
     };
 
     $scope.record = function() {
-      $state.go('record');
+      $state.go('record.measure');
     };
 }])
 .controller('dashReportsCtrl', ['$scope', 'statements', 'reportCategories', 'emociconeService', function($scope, statements, reportCategories, emociconeService) {
