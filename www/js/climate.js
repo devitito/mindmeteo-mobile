@@ -11,7 +11,8 @@ angular.module('climate', ['emocicones', 'session', 'record'])
   'recordsFactory',
   'moment',
   '$state',
-  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment, $state) {
+  '$ionicHistory',
+  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment, $state, $ionicHistory) {
 		$scope.processing = false;
 
 		$scope.go = function (url) {
@@ -41,6 +42,9 @@ angular.module('climate', ['emocicones', 'session', 'record'])
               $scope.showError(err.data);
             });
 
+            $ionicHistory.nextViewOptions({
+              disableAnimate: true
+            });
             $state.go('record.saving');
           }
           else
