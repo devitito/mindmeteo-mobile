@@ -1,11 +1,11 @@
 
 
-angular.module('record', ['ngResource'])
-.factory('recordsFactory', ['$resource', '$q',
-	function($resource, $q){
+angular.module('record', ['ngResource', 'session'])
+.factory('recordsFactory', ['$resource', '$q', 'backendUrl',
+	function($resource, $q, backendUrl){
 	var factory = {};
-	var resource = $resource('/record/:id', {id:'@id'}, {
-		saveBulk: {method: 'POST', url: '/record/saveBulk'}
+	var resource = $resource(backendUrl+'/record/:id', {id:'@id'}, {
+		saveBulk: {method: 'POST', url: backendUrl+'/record/saveBulk'}
 	});
 
 	factory.save = function (mindid, records) {

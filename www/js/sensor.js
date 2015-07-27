@@ -1,6 +1,6 @@
 
 
-angular.module('sensor', ['ngResource', 'ngTable', 'flashMsg', 'ui.bootstrap'])
+angular.module('sensor', ['ngResource', 'ngTable', 'flashMsg', 'ui.bootstrap', 'session'])
 .controller('sensorsCtrl', ['$scope',  'ngTableParams', '$resource', '$timeout', '$location', 'sensorsCache', 'sensorFactory',
     function ($scope, ngTableParams, $resource, $timeout, $location, sensorsCache, sensorFactory) {
 			var timer;
@@ -179,10 +179,10 @@ angular.module('sensor', ['ngResource', 'ngTable', 'flashMsg', 'ui.bootstrap'])
 
 		return factory;
 }])
-.factory('sensorsFactory', ['$resource', '$q', function($resource, $q){
+.factory('sensorsFactory', ['$resource', '$q', 'backendUrl', function($resource, $q, backendUrl){
 	var factory = {};
 	var resource = $resource('/sensor/:id', {id:'@id'}, {
-		listBy: {method:'GET', url: '/sensor/listBy', isArray:true}
+		listBy: {method:'GET', url: backendUrl+'/sensor/listBy', isArray:true}
 	});
 
 	factory.resource = function () {
@@ -215,11 +215,11 @@ angular.module('sensor', ['ngResource', 'ngTable', 'flashMsg', 'ui.bootstrap'])
 	        {code:'approved', name:'Approved'},
 	        {code:'assigned', name:'Assigned'}];
 }])
-.factory('sensorFactory', ['$resource', function($resource){
-	return $resource('/sensor/:id', {id: '@id'}, {
-		query: {method:'GET', url:'/sensor/query', isArray:false},
+.factory('sensorFactory', ['$resource', 'backendUrl', function($resource, backendUrl){
+	return $resource(backendUrl+'/sensor/:id', {id: '@id'}, {
+		query: {method:'GET', url:backendUrl+'/sensor/query', isArray:false},
 		update: {method:'PUT'},
-		suggest: {method:'GET', url:'/sensor/suggest', isArray:true}
+		suggest: {method:'GET', url:backendUrl+'/sensor/suggest', isArray:true}
 	});
 }]);
 
