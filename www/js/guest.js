@@ -30,9 +30,17 @@ angular.module('guest', ['session', 'flashMsg', 'mind'])
        }
      };
 }])
-.controller('mguestCtrl', ['$scope', '$state',
-   function ($scope, $state) {
+.controller('mguestCtrl', ['$scope', '$state', 'sessionFactory', function ($scope, $state, sessionFactory) {
      $scope.state = $state;
+
+     $scope.takeTourNow = function () {
+       sessionFactory.create({nameoremail: 'demo', password: 'demodemo'}).then(function(success) {
+          $state.go('mind.climate');
+       }).catch(function(error) {
+         $state.go('signup');
+         //$location.path('/session/new');
+       });
+     };
 }])
 .controller('newSessionCtrl', ['$scope', '$location', '$window', 'sessionFactory',
     function ($scope, $location, $window, sessionFactory) {
