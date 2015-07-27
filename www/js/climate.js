@@ -10,12 +10,21 @@ angular.module('climate', ['emocicones', 'session', 'record'])
   'sensorList',
   'recordsFactory',
   'moment',
-  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment) {
+  '$state',
+  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment, $state) {
 		$scope.processing = false;
 
 		$scope.go = function (url) {
 			$location.path(url);
 		};
+
+        $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+          viewData.enableBack = true;
+        });
+
+        $scope.myGoBack = function() {
+          $state.go('mind.climate');
+        }
 
 		$scope.identity = identity;
 

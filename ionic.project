@@ -17,6 +17,10 @@
     {
       "path": "/mind/climate",
       "proxyUrl": "http://localhost:1337/mind/climate"
+    },
+    {
+      "path": "/sensor",
+      "proxyUrl": "http://localhost:1337/sensor"
     }
   ],
   "gulpStartupTasks": [

@@ -1,5 +1,5 @@
 
-angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule', 'dashboard', 'guest', 'session', 'statement'])
+angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule', 'dashboard', 'guest', 'session', 'statement', 'sensor'])
 
 .config(['$stateProvider',
          'localStorageServiceProvider',
@@ -70,6 +70,20 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
             }
           }
         }
+    })
+
+    .state('record', {
+      url: '/record',
+          templateUrl: 'templates/record.html',
+          controller: 'mindClimateRecordCtrl',
+          resolve: {
+            identity: ['identityService', function(identityService) {
+              return identityService.get();
+            }],
+            sensorList : ['sensorsFactory', function (sensorsFactory) {
+              return sensorsFactory.listBy({field: "status", value: "approved"});
+            }]
+          }
     })
 
     $urlRouterProvider.otherwise('/');
