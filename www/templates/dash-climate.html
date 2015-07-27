@@ -1,13 +1,16 @@
 <ion-view view-title="Your climate">
+  <ion-nav-buttons side="secondary">
+    <button class="button button-icon icon ion-plus" ng-click="record()"></button>
+  </ion-nav-buttons>
   <!--Remove nav bar from here to avoid flicker when switching tabs-->
    <!-- <ion-nav-bar class="bar-calm">
         <ion-nav-back-button></ion-nav-back-button>
     </ion-nav-bar>-->
-    <ion-content class="aligner-column-bottom padding" scroll="false">
+    <ion-content class="aligner-column-bottom padion-plusding" scroll="false">
         <div ng-hide="message" google-chart chart="climate" class="card"></div>
-        <button ng-hide="message" class="button button-block button-calm icon ion-android-add no-margin-bottom">
+        <!--<button ng-hide="message" class="button button-block button-calm icon ion-android-add no-margin-bottom">
           New measurements
-        </button>
+        </button>-->
       <div ng-show="message" class="text-center" ><h4>{{message}}</h4></div>
     </ion-content>
 </ion-view>

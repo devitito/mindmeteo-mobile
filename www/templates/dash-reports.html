@@ -1,4 +1,7 @@
 <ion-view view-title="Your weather reports">
+  <ion-nav-buttons side="secondary">
+    <button class="button button-icon icon ion-plus" ng-click="doSomething()"></button>
+  </ion-nav-buttons>
   <!--Remove nav bar from here to avoid flicker when switching tabs -->
     <ion-content>
         <div ng-repeat="statement in statements" class="list card">
