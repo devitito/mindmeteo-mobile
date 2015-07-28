@@ -101,7 +101,7 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
       url: '/saving',
       views: {
         'rec-saving': {
-          templateUrl: 'templates/saving.html',
+          templateUrl: 'templates/saving.html'
         }
       }
     })

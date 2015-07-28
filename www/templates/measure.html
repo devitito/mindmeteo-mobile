@@ -1,13 +1,13 @@
 <ion-view view-title="Please answer our meteologists">
   <ion-nav-bar class="bar-calm">
-    <ion-nav-back-button ng-click="close()"> Leave</ion-nav-back-button>
+    <ion-nav-back-button ng-click="close()"></ion-nav-back-button>
   </ion-nav-bar>
   <ion-content class="aligner-column" on-swipe="puhlease()" scroll="false">
-    <div class="card aligner-column-item-top">
-        <div class="item item-text-wrap">
-          {{sensor.label}}
-        </div>
-    </div>
+    <blockquote class="aligner-column-item-top">
+      <!--  <div class="item item-text-wrap">-->
+      <p>{{sensor.label}}</p>
+       <!-- </div>-->
+    </blockquote>
     <div class="padding aligner">
       <img class="item-image" ng-src="{{identity.picture}}">
     </div>

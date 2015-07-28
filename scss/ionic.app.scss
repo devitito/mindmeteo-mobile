@@ -49,6 +49,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     height: -webkit-calc(100% - #{$minusValue});
 }
 
+.grey {
+  color: grey;
+}
+
 .no-margin-bottom {
   margin-bottom: 0px !important;
 }

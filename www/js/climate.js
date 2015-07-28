@@ -12,7 +12,9 @@ angular.module('climate', ['emocicones', 'session', 'record'])
   'moment',
   '$state',
   '$ionicHistory',
-  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment, $state, $ionicHistory) {
+  '$q',
+  '$ionicLoading',
+  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment, $state, $ionicHistory, $q, $ionicLoading) {
 		$scope.processing = false;
 
 		$scope.go = function (url) {
@@ -36,16 +38,31 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 
 		$scope.close = function () {
           if ($scope.records.length) {
-            recordsFactory.save({id:$scope.identity.id}, $scope.records).then(function (success) {
+            $state.go('record.saving');
+            /*$ionicLoading.show({
+              templateUrl: 'templates/saving.html'
+            });*/
+            var saving = recordsFactory.save({id:$scope.identity.id}, $scope.records)/*.then(function (success) {
+              $ionicLoading.hide();
               $state.go('mind.climate');
             }).catch(function (err) {
               $scope.showError(err.data);
-            });
+            });*/
 
             $ionicHistory.nextViewOptions({
               disableAnimate: true
             });
-            $state.go('record.saving');
+
+            var q = [];
+            q.push(saving);
+            q.push($timeout(function() {}, 2000));
+
+            $q.all(q).then(function (success) {
+              //$ionicLoading.hide();
+              $state.go('mind.climate');
+            }).catch(function (err) {
+              $scope.showError(err.data);
+            });
           }
           else
             $state.go('mind.climate');
