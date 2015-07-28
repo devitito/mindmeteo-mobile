@@ -1,25 +1,31 @@
 
 
 angular.module('record', ['ngResource', 'session'])
-.factory('recordsFactory', ['$resource', '$q', 'backendUrl',
-	function($resource, $q, backendUrl){
+.factory('recordsFactory', ['$resource', '$q', 'backendUrl', '$q', '$timeout',
+	function($resource, $q, backendUrl, $q, $timeout){
 	var factory = {};
 	var resource = $resource(backendUrl+'/record/:id', {id:'@id'}, {
 		saveBulk: {method: 'POST', url: backendUrl+'/record/saveBulk'}
 	});
 
-	factory.save = function (mindid, records) {
-		var deferred = $q.defer();
-		resource.saveBulk({}, {records: records}).$promise
-		.then(function (success) {
-			deferred.resolve(success);
-		})
-		.catch(function (error) {
-			deferred.reject(error);
-		});
-		//deferred.resolve('ok');
-		return deferred.promise;
-	}
+	factory.save = function (mindid, delay) {
+      return $q(function(resolve, reject) {
+        var q = [];
+
+        if (!angular.isUndefined(delay))
+          q.push($timeout(function() {}, delay));
+
+        q.push(resource.saveBulk({}, {records: factory.records}).$promise);
+
+        $q.all(q).then(function (success) {
+          resolve(success);
+        }).catch(function (error) {
+          reject(error);
+        });
+      });
+    }
+
+    factory.records = [];
 
 	return factory;
 }]);

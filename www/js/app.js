@@ -97,6 +97,21 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
       }
     })
 
+    .state('record.end', {
+      url: '/end',
+      views: {
+        'rec-end': {
+          templateUrl: 'templates/end.html',
+          controller: 'mmindClimateRecordEndCtrl',
+          resolve: {
+            identity: ['identityService', function(identityService) {
+              return identityService.get();
+            }]
+          }
+        }
+      }
+    })
+
     .state('record.saving', {
       url: '/saving',
       views: {

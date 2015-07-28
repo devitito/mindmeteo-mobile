@@ -12,9 +12,7 @@ angular.module('climate', ['emocicones', 'session', 'record'])
   'moment',
   '$state',
   '$ionicHistory',
-  '$q',
-  '$ionicNavBarDelegate',
-  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment, $state, $ionicHistory, $q, $ionicNavBarDelegate) {
+  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment, $state, $ionicHistory) {
 		$scope.processing = false;
 
 		$scope.go = function (url) {
@@ -23,6 +21,11 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 
         $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
           viewData.enableBack = true;
+          indexlist = [];
+          sensorIndex = getNextRandomSensorIndex();
+          $scope.end = false;
+          recordsFactory.records = [];
+          $scope.sensor = sensorList[sensorIndex]._source;
         });
 
 		$scope.identity = identity;
@@ -37,28 +40,10 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 		};
 
 		$scope.close = function () {
-          if ($scope.records.length) {
+          if (recordsFactory.records.length) {
             $state.go('record.saving');
-            /*$ionicLoading.show({
-              templateUrl: 'templates/saving.html'
-            });*/
-            var saving = recordsFactory.save({id:$scope.identity.id}, $scope.records)/*.then(function (success) {
-              $ionicLoading.hide();
-              $state.go('mind.climate');
-            }).catch(function (err) {
-              $scope.showError(err.data);
-            });*/
-
-            $ionicHistory.nextViewOptions({
-              disableAnimate: true
-            });
-
-            var q = [];
-            q.push(saving);
-            q.push($timeout(function() {}, 2000));
-
-            $q.all(q).then(function (success) {
-              //$ionicLoading.hide();
+            var saving = recordsFactory.save({id:$scope.identity.id}, 2000).then(function (success) {
+              $ionicHistory.nextViewOptions({disableAnimate: true});
               $state.go('mind.climate');
             }).catch(function (err) {
               $scope.showError(err.data);
@@ -66,7 +51,7 @@ angular.module('climate', ['emocicones', 'session', 'record'])
           }
           else
             $state.go('mind.climate');
-  	};
+  	     };
 
 		/**
 		 * Return the index in sensorList for the next sensor
@@ -90,24 +75,42 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 			//skype this test
 			sensorIndex = getNextRandomSensorIndex();
 			if (sensorIndex == -1) {
-                $ionicNavBarDelegate.title("No more questions");
-                $ionicNavBarDelegate.showBackButton(false);
-				$scope.end = true;
+              $state.go('record.end');
             }
 			else
 				$scope.sensor = sensorList[sensorIndex]._source;
 		};
 
     $scope.record = function (sensorId, sample) {
-      $scope.records.push({mind_id: identity.id, sensor_id: sensorId, sample_id: sample.id});
+      recordsFactory.records.push({mind_id: identity.id, sensor_id: sensorId, sample_id: sample.id});
       $scope.puhlease();
     };
 
     var indexlist = [];
     var sensorIndex = getNextRandomSensorIndex();
     $scope.end = false;
-    $scope.records = [];
+    recordsFactory.records = [];
     $scope.sensor = sensorList[sensorIndex]._source;
+}])
+.controller("mmindClimateRecordEndCtrl", [
+  '$scope',
+  '$state',
+  'recordsFactory',
+  'identity',
+  '$ionicHistory',
+  function($scope, $state, recordsFactory, identity, $ionicHistory) {
+
+    $scope.close = function () {
+      $state.go('record.saving');
+
+      var saving = recordsFactory.save({id:identity.id}, 2000).then(function (success) {
+        $ionicHistory.nextViewOptions({disableAnimate: true});
+        $state.go('mind.climate');
+      }).catch(function (err) {
+        //$scope.showError(err.data);
+      });
+  };
+
 }])
 .factory("climateChartHelper", ['emociconeService', '$window', function(emociconeService, $window) {
   var factory = {};
