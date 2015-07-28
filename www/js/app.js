@@ -1,5 +1,5 @@
 
-angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule', 'dashboard', 'guest', 'session', 'statement', 'sensor'])
+angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule', 'dashboard', 'guest', 'session', 'statement', 'sensor', 'ionic.ion.showWhen'])
 
 .config(['$stateProvider',
          'localStorageServiceProvider',
