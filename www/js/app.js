@@ -106,11 +106,6 @@ angular.module('mindmeteo', ['ionic', 'ionic.service.core', 'LocalStorageModule'
       }
     })
 
-   /* .state('record.end', {
-      url: '/end',
-      templateUrl: 'templates/end.html',
-    })*/
-
     $urlRouterProvider.otherwise('/');
 
     localStorageServiceProvider

@@ -13,8 +13,8 @@ angular.module('climate', ['emocicones', 'session', 'record'])
   '$state',
   '$ionicHistory',
   '$q',
-  '$ionicLoading',
-  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment, $state, $ionicHistory, $q, $ionicLoading) {
+  '$ionicNavBarDelegate',
+  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment, $state, $ionicHistory, $q, $ionicNavBarDelegate) {
 		$scope.processing = false;
 
 		$scope.go = function (url) {
@@ -89,9 +89,11 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 		$scope.puhlease = function () {
 			//skype this test
 			sensorIndex = getNextRandomSensorIndex();
-			console.log(sensorIndex);
-			if (sensorIndex == -1)
-				$state.go('record.end');
+			if (sensorIndex == -1) {
+                $ionicNavBarDelegate.title("No more questions");
+                $ionicNavBarDelegate.showBackButton(false);
+				$scope.end = true;
+            }
 			else
 				$scope.sensor = sensorList[sensorIndex]._source;
 		};

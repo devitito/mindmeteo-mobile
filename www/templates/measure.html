@@ -2,22 +2,28 @@
   <ion-nav-bar class="bar-calm">
     <ion-nav-back-button ng-click="close()"></ion-nav-back-button>
   </ion-nav-bar>
-  <ion-content class="aligner-column" on-swipe="puhlease()" scroll="false">
-    <blockquote class="aligner-column-item-top">
+  <ion-content class="aligner-column padding" on-swipe="puhlease()" scroll="false">
+
+    <blockquote ng-if="!end && !processing && !error" class="aligner-column-item-top">
       <!--  <div class="item item-text-wrap">-->
       <p>{{sensor.label}}</p>
-       <!-- </div>-->
+      <!-- </div>-->
     </blockquote>
-    <div class="padding aligner">
+    <div ng-if="!end && !processing && !error" class="aligner">
       <img class="item-image" ng-src="{{identity.picture}}">
     </div>
-    <div class="padding">
+    <div ng-if="!end && !processing && !error">
       <button class="button button-block button-calm button-outline" ng-click="record(sensor.id, sensor.samples[0])">{{sensor.samples[0].label}}</button>
       <button class="button button-block button-calm button-outline" ng-click="record(sensor.id, sensor.samples[1])">{{sensor.samples[1].label}}</button>
-       <!-- <p class="triangle-border right clickable" ng-click="puhlease()" >Puh-lease!</p>-->
+      <!-- <p class="triangle-border right clickable" ng-click="puhlease()" >Puh-lease!</p>-->
       <!--<button class="button button-block button-calm button-outline" ng-click="close()">Leave me now</button>-->
     </div>
-    <div ui-view></div>
+
+    <blockquote ng-if="end && !processing && !error" class="aligner-column-item-top">
+      <p class="padding text-center">You can go on with your life now.</p>
+    </blockquote>
+    <button ng-if="end && !processing && !error" class="button button-block button-calm button-outline" ng-click="close()">Ok :(</button>
+
   </ion-content>
 </ion-view>
 
