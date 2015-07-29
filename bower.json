@@ -11,7 +11,8 @@
     "angular-moment": "~0.10.1",
     "angular-bootstrap": "~0.13.0",
     "angular-google-chart": "~0.0.11",
-    "ng-table": "~0.7.0"
+    "ng-table": "~0.7.0",
+    "ionic-ion-showWhen": "https://github.com/andrewmcgivery/ionic-ion-showWhen.git"
   },
   "resolutions": {
     "angular": "1.3.13"
