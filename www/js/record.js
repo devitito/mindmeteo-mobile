@@ -18,6 +18,8 @@ angular.module('record', ['ngResource', 'session'])
         q.push(resource.saveBulk({}, {records: factory.records}).$promise);
 
         $q.all(q).then(function (success) {
+          //Release mem
+          factory.records = [];
           resolve(success);
         }).catch(function (error) {
           reject(error);
